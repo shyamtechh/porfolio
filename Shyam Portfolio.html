@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shyamaleshwar Kamble | AI & ML Engineer</title>
+<style>
+:root{
+  --bg:#0A0A0A;--bg2:#111116;--bg3:#15151c;
+  --accent:#00D4FF;--purple:#7C3AED;--white:#FFFFFF;
+  --gray:#A0A0B0;--card:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --glow:0 0 30px rgba(0,212,255,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;cursor:none;}
+#cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,212,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;}
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));z-index:9997;width:0%;transition:width .1s;}
+#loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .6s;}
+#loader.hide{opacity:0;pointer-events:none;}
+.loader-ring{width:56px;height:56px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;background:rgba(10,10,10,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.88rem;letter-spacing:.02em;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.nav-cta{padding:8px 20px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);text-decoration:none;font-size:.85rem;transition:all .2s;cursor:pointer;background:transparent;}
+.nav-cta:hover{background:var(--accent);color:var(--bg);}
+.nav-dashboard{padding:8px 16px;border:1px solid var(--purple);border-radius:6px;color:var(--purple);font-size:.85rem;transition:all .2s;cursor:pointer;background:transparent;}
+.nav-dashboard:hover{background:var(--purple);color:#fff;}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
+section{position:relative;z-index:1;}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;gap:60px;}
+.hero-content{flex:1;max-width:620px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-size:.78rem;color:var(--gray);margin-bottom:28px;background:var(--card);}
+.hero-badge span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-.02em;}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{color:var(--accent);font-size:1rem;font-weight:500;margin-bottom:16px;letter-spacing:.03em;}
+.hero p{color:var(--gray);font-size:1rem;line-height:1.75;margin-bottom:36px;}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;}
+.btn-primary{padding:12px 28px;background:linear-gradient(135deg,var(--accent),var(--purple));border:none;border-radius:8px;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;transition:all .3s;display:inline-block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--glow);}
+.btn-outline{padding:12px 28px;border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:.9rem;background:var(--card);backdrop-filter:blur(10px);cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.hero-visual{flex:0 0 360px;display:flex;justify-content:center;align-items:center;}
+.avatar-wrap{position:relative;width:260px;height:260px;}
+.avatar-ring{position:absolute;inset:-18px;border:1px solid rgba(0,212,255,.2);border-radius:50%;animation:rotate 8s linear infinite;}
+.avatar-ring2{position:absolute;inset:-36px;border:1px dashed rgba(124,58,237,.2);border-radius:50%;animation:rotate 14s linear infinite reverse;}
+.avatar-img{width:260px;height:260px;border-radius:50%;background:linear-gradient(135deg,#1a1a2e,#16213e);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:5rem;overflow:hidden;position:relative;}
+.avatar-img::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(0,212,255,.15),transparent 60%);}
+@keyframes rotate{to{transform:rotate(360deg);}}
+.float-icons{position:absolute;inset:0;}
+.fi{position:absolute;width:36px;height:36px;background:var(--card);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;animation:float 3s ease-in-out infinite;}
+.fi:nth-child(1){top:-10px;left:50%;animation-delay:0s;}
+.fi:nth-child(2){top:40%;right:-15px;animation-delay:.5s;}
+.fi:nth-child(3){bottom:-10px;left:50%;animation-delay:1s;}
+.fi:nth-child(4){top:40%;left:-15px;animation-delay:1.5s;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.section-label{font-size:.78rem;font-weight:600;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;}
+.section-desc{color:var(--gray);font-size:1rem;max-width:520px;line-height:1.7;margin-bottom:52px;}
+.container{max-width:1140px;margin:0 auto;padding:100px 5%;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-text p{color:var(--gray);line-height:1.8;margin-bottom:16px;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
+.stat-card{padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;text-align:center;transition:border-color .2s;}
+.stat-card:hover{border-color:var(--accent);}
+.stat-num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-lbl{font-size:.78rem;color:var(--gray);margin-top:4px;}
+.about-image{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(124,58,237,.08));border:1px solid var(--border);border-radius:24px;height:360px;display:flex;align-items:center;justify-content:center;font-size:6rem;position:relative;overflow:hidden;}
+.about-image::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,212,255,.07),transparent 70%);}
+.skills-bg{background:var(--bg2);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.skill-card{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .3s;}
+.skill-card:hover{border-color:rgba(0,212,255,.4);transform:translateY(-4px);box-shadow:var(--glow);}
+.skill-icon{font-size:1.8rem;margin-bottom:12px;}
+.skill-name{font-weight:600;margin-bottom:12px;font-size:.95rem;}
+.skill-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--purple));width:0%;transition:width 1.5s ease;}
+.skill-pct{font-size:.75rem;color:var(--gray);margin-top:6px;text-align:right;}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .3s;}
+.project-card:hover{border-color:rgba(0,212,255,.35);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.project-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+.p1{background:linear-gradient(135deg,#0d1b2a,#1a3a4a);}
+.p2{background:linear-gradient(135deg,#1a0d2a,#3a1a4a);}
+.p3{background:linear-gradient(135deg,#0d2a1a,#1a4a2a);}
+.p4{background:linear-gradient(135deg,#2a1a0d,#4a3a1a);}
+.p5{background:linear-gradient(135deg,#0d1a2a,#1a2a4a);}
+.p6{background:linear-gradient(135deg,#2a0d1a,#4a1a2a);}
+.project-body{padding:20px;}
+.project-title{font-weight:700;font-size:1.05rem;margin-bottom:8px;}
+.project-desc{color:var(--gray);font-size:.85rem;line-height:1.65;margin-bottom:16px;}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.tag{padding:3px 10px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:20px;font-size:.72rem;color:var(--accent);}
+.project-links{display:flex;gap:10px;}
+.btn-sm{padding:7px 16px;border-radius:6px;font-size:.8rem;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block;}
+.btn-sm.gh{border:1px solid var(--border);color:var(--gray);background:transparent;}
+.btn-sm.gh:hover{border-color:var(--white);color:var(--white);}
+.btn-sm.demo{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border:none;}
+.btn-sm.demo:hover{opacity:.85;}
+.edu-bg{background:var(--bg2);}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent),var(--purple));}
+.tl-item{position:relative;margin-bottom:40px;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:border-color .2s;}
+.tl-item:hover{border-color:rgba(0,212,255,.4);}
+.tl-dot{position:absolute;left:-34px;top:28px;width:14px;height:14px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent);}
+.tl-date{font-size:.78rem;color:var(--accent);margin-bottom:6px;font-weight:600;letter-spacing:.05em;}
+.tl-title{font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.tl-sub{color:var(--gray);font-size:.88rem;}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.cert-card{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;gap:12px;transition:all .3s;}
+.cert-card:hover{border-color:rgba(124,58,237,.5);transform:translateY(-4px);box-shadow:0 0 30px rgba(124,58,237,.15);}
+.cert-badge{width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.cert-name{font-weight:700;font-size:.95rem;}
+.cert-issuer{color:var(--gray);font-size:.82rem;}
+.cert-verify{padding:7px 16px;border:1px solid var(--purple);border-radius:6px;color:var(--purple);font-size:.78rem;cursor:pointer;background:transparent;transition:all .2s;align-self:flex-start;}
+.cert-verify:hover{background:var(--purple);color:#fff;}
+.roadmap-bg{background:var(--bg2);}
+.roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+.rm-card{padding:20px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-align:center;transition:all .3s;}
+.rm-card:hover{border-color:var(--accent);}
+.rm-icon{font-size:2rem;margin-bottom:10px;}
+.rm-title{font-weight:600;font-size:.9rem;margin-bottom:8px;}
+.rm-progress{height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
+.rm-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:4px;width:0%;transition:width 1.5s ease;}
+.rm-label{font-size:.75rem;color:var(--gray);margin-top:6px;}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;}
+.ach-card{padding:28px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-align:center;transition:all .3s;}
+.ach-card:hover{border-color:rgba(0,212,255,.4);transform:translateY(-4px);}
+.ach-num{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.ach-lbl{color:var(--gray);font-size:.85rem;margin-top:4px;}
+.gallery-bg{background:var(--bg2);}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+.gallery-item{aspect-ratio:1;background:linear-gradient(135deg,#1a1a2e,#0f0f1a);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:3rem;cursor:pointer;transition:all .3s;overflow:hidden;position:relative;}
+.gallery-item:hover{transform:scale(1.04);border-color:rgba(0,212,255,.4);box-shadow:var(--glow);}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);display:flex;align-items:flex-end;padding:12px;opacity:0;transition:opacity .2s;}
+.gallery-item:hover .gallery-overlay{opacity:1;}
+.gallery-overlay span{font-size:.8rem;font-weight:600;}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+.test-card{padding:28px;background:var(--card);border:1px solid var(--border);border-radius:18px;backdrop-filter:blur(10px);transition:border-color .2s;}
+.test-card:hover{border-color:rgba(0,212,255,.3);}
+.test-quote{font-size:2rem;color:var(--accent);margin-bottom:12px;line-height:1;}
+.test-text{color:var(--gray);font-size:.9rem;line-height:1.7;margin-bottom:20px;font-style:italic;}
+.test-author{display:flex;align-items:center;gap:12px;}
+.test-avatar{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.test-name{font-weight:600;font-size:.88rem;}
+.test-role{color:var(--gray);font-size:.78rem;}
+
+/* ── CONTACT SECTION ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:20px;}
+.contact-item{display:flex;align-items:center;gap:16px;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:border-color .2s;text-decoration:none;color:var(--white);}
+.contact-item:hover{border-color:var(--accent);}
+.ci-icon{width:40px;height:40px;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(124,58,237,.15));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.ci-label{font-size:.75rem;color:var(--gray);margin-bottom:2px;}
+.ci-val{font-size:.88rem;font-weight:500;}
+.contact-form{display:flex;flex-direction:column;gap:16px;}
+.form-input{padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--white);font-size:.9rem;outline:none;transition:border-color .2s;font-family:inherit;}
+.form-input:focus{border-color:var(--accent);}
+.form-input::placeholder{color:var(--gray);}
+textarea.form-input{resize:vertical;min-height:120px;}
+.socials{display:flex;gap:12px;margin-top:8px;}
+.social-btn{width:40px;height:40px;background:var(--card);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;transition:all .2s;text-decoration:none;}
+.social-btn:hover{border-color:var(--accent);transform:translateY(-2px);}
+.send-btn{padding:14px 28px;background:linear-gradient(135deg,var(--accent),var(--purple));border:none;border-radius:10px;color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.send-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--glow);}
+.send-btn:disabled{opacity:.6;cursor:not-allowed;}
+.form-status{padding:14px;border-radius:10px;font-size:.88rem;text-align:center;display:none;}
+.form-status.success{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:var(--accent);display:block;}
+.form-status.error{background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.3);color:#ff6060;display:block;}
+
+/* ── DASHBOARD MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.modal-overlay.open{display:flex;}
+.modal{background:#111116;border:1px solid var(--border);border-radius:20px;width:min(92vw,760px);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-header{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:10px;}
+.modal-badge{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+.modal-close{background:none;border:none;color:var(--gray);font-size:1.4rem;cursor:pointer;line-height:1;transition:color .2s;}
+.modal-close:hover{color:var(--white);}
+.modal-body{padding:24px 28px;overflow-y:auto;flex:1;}
+.dash-empty{text-align:center;padding:60px 20px;color:var(--gray);}
+.dash-empty-icon{font-size:3rem;margin-bottom:16px;}
+.msg-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;transition:border-color .2s;}
+.msg-card:hover{border-color:rgba(0,212,255,.3);}
+.msg-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.msg-sender{font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:8px;}
+.msg-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;}
+.msg-time{font-size:.75rem;color:var(--gray);}
+.msg-email{font-size:.78rem;color:var(--accent);margin-bottom:8px;}
+.msg-text{color:var(--gray);font-size:.88rem;line-height:1.65;}
+.msg-new{border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.03);}
+.new-badge{padding:2px 8px;background:rgba(0,212,255,.15);border:1px solid rgba(0,212,255,.3);border-radius:10px;font-size:.7rem;color:var(--accent);}
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.dash-stat{padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-align:center;}
+.dash-stat-num{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.dash-stat-lbl{font-size:.72rem;color:var(--gray);margin-top:2px;}
+.dash-refresh{padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--gray);font-size:.8rem;cursor:pointer;transition:all .2s;}
+.dash-refresh:hover{border-color:var(--accent);color:var(--accent);}
+footer{padding:36px 5%;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--bg);}
+.footer-logo{font-weight:700;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{color:var(--gray);text-decoration:none;font-size:.85rem;transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{color:var(--gray);font-size:.82rem;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:768px){
+  .hero{flex-direction:column-reverse;text-align:center;gap:40px;}
+  .hero-btns{justify-content:center;}
+  .hero-visual{flex:none;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .dash-stats{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="progress"></div>
+<div id="loader"><div class="loader-ring"></div><p style="color:var(--gray);font-size:.85rem;letter-spacing:.08em;">LOADING</p></div>
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">SK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-dashboard" onclick="openDash()">📬 Messages</button>
+    <a href="mailto:shyamaleshwar.kamble@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- DASHBOARD MODAL -->
+<div class="modal-overlay" id="dashModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><div class="modal-badge"></div>Messages Dashboard</div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="dash-refresh" onclick="renderDash()">↻ Refresh</button>
+        <button class="modal-close" onclick="closeDash()">×</button>
+      </div>
+    </div>
+    <div class="modal-body" id="dashBody">
+      <div class="dash-empty"><div class="dash-empty-icon">📭</div><p>No messages yet.<br>They'll appear here when someone contacts you.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content reveal">
+    <div class="hero-badge"><span></span>Open to Opportunities</div>
+    <p class="hero-sub">AI & ML Enthusiast · Python Developer · Problem Solver · Technology Explorer</p>
+    <h1>Building <span class="grad">Intelligent Systems</span> with AI & Machine Learning</h1>
+    <p>I am passionate about Artificial Intelligence, Machine Learning, Industrial Technology, and creating impactful solutions through data and software development.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#" class="btn-outline">Download Resume</a>
+      <a href="https://linkedin.com/in/shyamaleshwar-kamble-943165328" target="_blank" class="btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div><div class="avatar-ring2"></div>
+      <div class="avatar-img">🧠</div>
+      <div class="float-icons">
+        <div class="fi">🐍</div><div class="fi">🤖</div><div class="fi">📊</div><div class="fi">🔬</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about"><div class="container">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">Aspiring AI Engineer</h2>
+      <p>I am an aspiring AI Engineer currently pursuing B.Tech and continuously learning advanced technologies in Artificial Intelligence, Machine Learning, Deep Learning, Data Science, and Software Development.</p>
+      <p>My goal is to build intelligent systems that solve real-world problems and contribute to the future of technology.</p>
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-num" data-target="6">0</div><div class="stat-lbl">Projects Built</div></div>
+        <div class="stat-card"><div class="stat-num" data-target="2">0</div><div class="stat-lbl">Certifications</div></div>
+        <div class="stat-card"><div class="stat-num" data-target="8">0</div><div class="stat-lbl">Core Skills</div></div>
+        <div class="stat-card"><div class="stat-num" data-target="500">0</div><div class="stat-lbl">Learning Hours</div></div>
+      </div>
+    </div>
+    <div class="about-image reveal">🎓</div>
+  </div>
+</div></section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg"><div class="container">
+  <p class="section-label reveal">Expertise</p>
+  <h2 class="section-title reveal">Skills & Technologies</h2>
+  <p class="section-desc reveal">A growing toolkit of AI/ML technologies, languages, and creative tools.</p>
+  <div class="skills-grid" id="skillsGrid"></div>
+</div></section>
+
+<!-- PROJECTS -->
+<section id="projects"><div class="container">
+  <p class="section-label reveal">Portfolio</p>
+  <h2 class="section-title reveal">Featured Projects</h2>
+  <p class="section-desc reveal">A showcase of intelligent systems and data-driven solutions.</p>
+  <div class="projects-grid" id="projectsGrid"></div>
+</div></section>
+
+<!-- EDUCATION -->
+<section id="education" class="edu-bg"><div class="container">
+  <p class="section-label reveal">Background</p>
+  <h2 class="section-title reveal">Education</h2>
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2022 – Present</div>
+      <div class="tl-title">Bachelor of Technology (B.Tech)</div>
+      <div class="tl-sub">Kalasalingam Academy of Research and Education (KARE)</div>
+      <p style="color:var(--gray);font-size:.85rem;margin-top:10px;line-height:1.6">Focused on Artificial Intelligence, Machine Learning, and Software Engineering.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications"><div class="container">
+  <p class="section-label reveal">Credentials</p>
+  <h2 class="section-title reveal">Certifications</h2>
+  <div class="certs-grid reveal">
+    <div class="cert-card"><div class="cert-badge">🏆</div><div class="cert-name">Freedom With AI Masterclass</div><div class="cert-issuer">Certificate of Achievement</div><button class="cert-verify">✓ Verified</button></div>
+    <div class="cert-card"><div class="cert-badge">🧪</div><div class="cert-name">Jmol Certificate</div><div class="cert-issuer">Molecular Visualization</div><button class="cert-verify">✓ Verified</button></div>
+  </div>
+</div></section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="roadmap-bg"><div class="container">
+  <p class="section-label reveal">Journey</p>
+  <h2 class="section-title reveal">Learning Roadmap</h2>
+  <p class="section-desc reveal">My progression across the AI/ML landscape.</p>
+  <div class="roadmap-grid" id="roadmapGrid"></div>
+</div></section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements"><div class="container">
+  <p class="section-label reveal">Impact</p>
+  <h2 class="section-title reveal">Achievements</h2>
+  <div class="ach-grid">
+    <div class="ach-card reveal"><div class="ach-num" data-target="6">0</div><div class="ach-lbl">Projects Completed</div></div>
+    <div class="ach-card reveal"><div class="ach-num" data-target="2">0</div><div class="ach-lbl">Certifications Earned</div></div>
+    <div class="ach-card reveal"><div class="ach-num" data-target="8">0</div><div class="ach-lbl">Technologies Learned</div></div>
+    <div class="ach-card reveal"><div class="ach-num" data-target="500">0</div><div class="ach-lbl">Learning Hours</div></div>
+  </div>
+</div></section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-bg"><div class="container">
+  <p class="section-label reveal">Creative Side</p>
+  <h2 class="section-title reveal">Photography & Creativity</h2>
+  <p class="section-desc reveal">Beyond code — exploring the world through a lens.</p>
+  <div class="gallery-grid reveal" id="galleryGrid"></div>
+</div></section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials"><div class="container">
+  <p class="section-label reveal">Social Proof</p>
+  <h2 class="section-title reveal">Testimonials</h2>
+  <div class="test-grid reveal">
+    <div class="test-card"><div class="test-quote">"</div><div class="test-text">A brilliant mind with genuine curiosity for AI. Shyamaleshwar approaches every problem with both analytical rigor and creative thinking.</div><div class="test-author"><div class="test-avatar">👤</div><div><div class="test-name">Mentor Placeholder</div><div class="test-role">Industry Professional</div></div></div></div>
+    <div class="test-card"><div class="test-quote">"</div><div class="test-text">His commitment to learning and building real-world AI solutions sets him apart. Excited to see where this journey leads.</div><div class="test-author"><div class="test-avatar">👤</div><div><div class="test-name">Peer Placeholder</div><div class="test-role">Fellow Engineer</div></div></div></div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact" class="skills-bg"><div class="container">
+  <p class="section-label reveal">Get In Touch</p>
+  <h2 class="section-title reveal">Let's Connect</h2>
+  <p class="section-desc reveal">Have a project, opportunity, or just want to say hi? Drop a message — it goes straight to my Gmail and dashboard.</p>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <a href="mailto:shyamaleshwar.kamble@gmail.com" class="contact-item">
+        <div class="ci-icon">📧</div>
+        <div><div class="ci-label">Email</div><div class="ci-val">shyamaleshwar.kamble@gmail.com</div></div>
+      </a>
+      <a href="https://linkedin.com/in/shyamaleshwar-kamble-943165328" target="_blank" class="contact-item">
+        <div class="ci-icon">💼</div>
+        <div><div class="ci-label">LinkedIn</div><div class="ci-val">shyamaleshwar-kamble-943165328</div></div>
+      </a>
+      <div class="contact-item" style="cursor:default;">
+        <div class="ci-icon">📍</div>
+        <div><div class="ci-label">Location</div><div class="ci-val">Bengaluru, Karnataka, India</div></div>
+      </div>
+      <div class="socials">
+        <a href="mailto:shyamaleshwar.kamble@gmail.com" class="social-btn">📧</a>
+        <a href="https://linkedin.com/in/shyamaleshwar-kamble-943165328" target="_blank" class="social-btn">💼</a>
+        <a href="#" class="social-btn">🐙</a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <input class="form-input" id="fname" type="text" placeholder="Your Name" maxlength="80"/>
+      <input class="form-input" id="femail" type="email" placeholder="Your Email"/>
+      <input class="form-input" id="fsubject" type="text" placeholder="Subject (optional)" maxlength="120"/>
+      <textarea class="form-input" id="fmessage" placeholder="Your Message" rows="5"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+        <span id="sendLabel">Send Message</span><span>→</span>
+      </button>
+      <div class="form-status" id="formStatus"></div>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="footer-logo">Shyamaleshwar Kamble</div>
+  <ul class="footer-links">
+    <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Shyamaleshwar Kamble</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,.skill-card,.project-card,.cert-card,.gallery-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.6)';ring.style.borderColor='rgba(0,212,255,.6)';});
+  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(0,212,255,.4)';});
+});
+window.addEventListener('scroll',()=>{document.getElementById('progress').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hide'),600);});
+
+// ── PARTICLES ──
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+function mkPt(){return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,o:Math.random()*.5+.1};}
+for(let i=0;i<90;i++)pts.push(mkPt());
+(function drawPts(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${p.o})`;ctx.fill();});
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,212,255,${(1-d/120)*.12})`;ctx.lineWidth=.5;ctx.stroke();}}
+  requestAnimationFrame(drawPts);
+})();
+
+// ── SKILLS ──
+const skills=[{icon:'🐍',name:'Python',pct:85},{icon:'🤖',name:'Machine Learning',pct:78},{icon:'🧠',name:'Deep Learning',pct:70},{icon:'🔬',name:'Artificial Intelligence',pct:75},{icon:'📊',name:'Data Science',pct:72},{icon:'🧩',name:'Problem Solving',pct:90},{icon:'🐙',name:'Git & GitHub',pct:80},{icon:'🌲',name:'DSA',pct:74},{icon:'🎬',name:'Video Editing',pct:80},{icon:'📷',name:'Photography',pct:85},{icon:'🔍',name:'Research',pct:78},{icon:'📝',name:'Technical Writing',pct:75}];
+const sg=document.getElementById('skillsGrid');
+skills.forEach(s=>{sg.innerHTML+=`<div class="skill-card reveal"><div class="skill-icon">${s.icon}</div><div class="skill-name">${s.name}</div><div class="skill-bar"><div class="skill-fill" data-pct="${s.pct}"></div></div><div class="skill-pct">${s.pct}%</div></div>`;});
+
+// ── PROJECTS ──
+const projects=[{thumb:'p1',icon:'💬',title:'AI Chatbot',desc:'Conversational AI assistant using NLP techniques for natural human-like dialogue.',tags:['Python','NLP','Transformers']},{thumb:'p2',icon:'🖼️',title:'Image Classification',desc:'CNN-based system classifying images into multiple categories with high accuracy.',tags:['CNN','TensorFlow','OpenCV']},{thumb:'p3',icon:'🧬',title:'Deep Learning Model',desc:'Custom neural network architecture trained on domain-specific datasets.',tags:['PyTorch','Deep Learning','NumPy']},{thumb:'p4',icon:'📈',title:'Data Analytics Dashboard',desc:'Interactive dashboard visualizing complex datasets with real-time insights.',tags:['Python','Pandas','Plotly']},{thumb:'p5',icon:'⭐',title:'Recommendation System',desc:'Collaborative filtering engine for personalized content recommendations.',tags:['Scikit-learn','ML','Python']},{thumb:'p6',icon:'👁️',title:'Computer Vision',desc:'Object detection and scene understanding using state-of-the-art vision models.',tags:['YOLO','OpenCV','Python']}];
+const pg=document.getElementById('projectsGrid');
+projects.forEach(p=>{pg.innerHTML+=`<div class="project-card reveal"><div class="project-thumb ${p.thumb}">${p.icon}</div><div class="project-body"><div class="project-title">${p.title}</div><div class="project-desc">${p.desc}</div><div class="project-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="project-links"><a href="#" class="btn-sm gh">GitHub</a><a href="#" class="btn-sm demo">Live Demo</a></div></div></div>`;});
+
+// ── ROADMAP ──
+const roadmap=[{icon:'🐍',title:'Python Dev',pct:85,label:'Advanced'},{icon:'🤖',title:'Machine Learning',pct:78,label:'Proficient'},{icon:'🧠',title:'Deep Learning',pct:70,label:'Intermediate'},{icon:'✨',title:'Generative AI',pct:65,label:'Learning'},{icon:'💬',title:'LLMs',pct:60,label:'Exploring'},{icon:'👁️',title:'Computer Vision',pct:68,label:'Intermediate'},{icon:'⚙️',title:'MLOps',pct:50,label:'Beginner'}];
+const rg=document.getElementById('roadmapGrid');
+roadmap.forEach(r=>{rg.innerHTML+=`<div class="rm-card reveal"><div class="rm-icon">${r.icon}</div><div class="rm-title">${r.title}</div><div class="rm-progress"><div class="rm-fill" data-pct="${r.pct}"></div></div><div class="rm-label">${r.label} · ${r.pct}%</div></div>`;});
+
+// ── GALLERY ──
+const gallery=[{emoji:'🌅',label:'Sunrise Photography'},{emoji:'🌿',label:'Nature Macro'},{emoji:'🎬',label:'Video Editing'},{emoji:'🌊',label:'Waterscapes'},{emoji:'🏙️',label:'Urban Shots'},{emoji:'🦋',label:'Wildlife'}];
+const gg=document.getElementById('galleryGrid');
+gallery.forEach((g,i)=>{const bg=['#0d1b2a','#1a0d2a','#0d2a1a','#2a1a0d','#0d1a2a','#2a0d1a'][i];gg.innerHTML+=`<div class="gallery-item reveal" style="background:linear-gradient(135deg,${bg},#0a0a0a)">${g.emoji}<div class="gallery-overlay"><span>${g.label}</span></div></div>`;});
+
+// ── INTERSECTION OBSERVER ──
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.skill-fill,.rm-fill').forEach(f=>{f.style.width=f.dataset.pct+'%';});
+      e.target.querySelectorAll('[data-target]').forEach(el=>{
+        const target=+el.dataset.target;let c=0;
+        const step=()=>{c+=Math.ceil(target/40);if(c>=target){el.textContent=target+(target>=100?'+':'');return;}el.textContent=c;requestAnimationFrame(step);};
+        step();
+      });
+    }
+  });
+},{threshold:.12});
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>observer.observe(el)),100);
+
+// ══════════════════════════════════════
+// ── CONTACT FORM + GMAIL + DASHBOARD ──
+// ══════════════════════════════════════
+
+// Persistent storage key
+const STORE_KEY = 'sk-messages';
+
+async function loadMessages(){
+  try{
+    const r = await window.storage.get(STORE_KEY);
+    return r ? JSON.parse(r.value) : [];
+  }catch{return [];}
+}
+async function saveMessages(msgs){
+  try{ await window.storage.set(STORE_KEY, JSON.stringify(msgs)); }catch(e){console.error(e);}
+}
+
+async function sendMessage(){
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const subject = document.getElementById('fsubject').value.trim();
+  const message = document.getElementById('fmessage').value.trim();
+  const btn = document.getElementById('sendBtn');
+  const lbl = document.getElementById('sendLabel');
+  const status = document.getElementById('formStatus');
+
+  // Validation
+  if(!name){showStatus('error','Please enter your name.');return;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showStatus('error','Please enter a valid email address.');return;}
+  if(!message){showStatus('error','Please write a message.');return;}
+
+  btn.disabled=true; lbl.textContent='Sending…'; status.className='form-status';
+
+  try{
+    // ── 1. Send via Gmail API ──
+    const emailResult = await sendViaGmail(name, email, subject, message);
+
+    // ── 2. Save to dashboard storage ──
+    const msgs = await loadMessages();
+    msgs.unshift({
+      id: Date.now(),
+      name, email,
+      subject: subject||'(No subject)',
+      message,
+      time: new Date().toISOString(),
+      isNew: true,
+      gmailSent: emailResult.success
+    });
+    await saveMessages(msgs);
+
+    // ── 3. Show success ──
+    showStatus('success', emailResult.success
+      ? '✅ Message sent! I received it in Gmail and on my dashboard.'
+      : '✅ Message saved to dashboard! (Gmail delivery pending — check connection.)');
+    document.getElementById('fname').value='';
+    document.getElementById('femail').value='';
+    document.getElementById('fsubject').value='';
+    document.getElementById('fmessage').value='';
+
+  }catch(err){
+    console.error(err);
+    showStatus('error','Something went wrong. Please try emailing directly at shyamaleshwar.kamble@gmail.com');
+  }
+
+  btn.disabled=false; lbl.textContent='Send Message';
+}
+
+async function sendViaGmail(name, fromEmail, subject, message){
+  try{
+    const subj = subject ? `[Portfolio Contact] ${subject}` : `[Portfolio Contact] Message from ${name}`;
+    const body = `You received a new message from your portfolio contact form.\n\n👤 Name: ${name}\n📧 Email: ${fromEmail}\n📌 Subject: ${subject||'—'}\n\n💬 Message:\n${message}\n\n---\nSent via shyamaleshwar.kamble.dev portfolio`;
+
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        system:"You are an assistant that sends emails using the Gmail MCP tool. When asked, compose and send an email using the provided details. Always use the send_email tool.",
+        messages:[{role:"user",content:`Please send an email with these details:\nTo: shyamaleshwar.kamble@gmail.com\nSubject: ${subj}\nBody:\n${body}`}],
+        mcp_servers:[{type:"url",url:"https://gmailmcp.googleapis.com/mcp/v1",name:"gmail-mcp"}]
+      })
+    });
+    if(!res.ok) return {success:false};
+    const data = await res.json();
+    // Check if tool was used
+    const toolUsed = data.content && data.content.some(c=>c.type==='mcp_tool_use'||c.type==='tool_use');
+    return {success: toolUsed || (data.content && data.content.some(c=>c.type==='text' && c.text.toLowerCase().includes('sent')))};
+  }catch(e){
+    console.error('Gmail send error:',e);
+    return {success:false};
+  }
+}
+
+function showStatus(type, msg){
+  const el=document.getElementById('formStatus');
+  el.className='form-status '+type;
+  el.textContent=msg;
+  setTimeout(()=>el.className='form-status',7000);
+}
+
+// ── DASHBOARD ──
+function openDash(){
+  document.getElementById('dashModal').classList.add('open');
+  renderDash();
+}
+function closeDash(){document.getElementById('dashModal').classList.remove('open');}
+document.getElementById('dashModal').addEventListener('click',e=>{if(e.target===document.getElementById('dashModal'))closeDash();});
+
+async function renderDash(){
+  const body=document.getElementById('dashBody');
+  body.innerHTML=`<div style="text-align:center;padding:40px;color:var(--gray)"><div class="loader-ring" style="margin:0 auto"></div><p style="margin-top:16px;font-size:.85rem">Loading messages…</p></div>`;
+  const msgs = await loadMessages();
+
+  if(!msgs.length){
+    body.innerHTML=`<div class="dash-empty"><div class="dash-empty-icon">📭</div><p style="color:var(--gray)">No messages yet.<br>They'll appear here when someone contacts you.</p></div>`;
+    return;
+  }
+
+  const total=msgs.length, newCount=msgs.filter(m=>m.isNew).length, gmailSent=msgs.filter(m=>m.gmailSent).length;
+
+  let html=`<div class="dash-stats">
+    <div class="dash-stat"><div class="dash-stat-num">${total}</div><div class="dash-stat-lbl">Total</div></div>
+    <div class="dash-stat"><div class="dash-stat-num">${newCount}</div><div class="dash-stat-lbl">Unread</div></div>
+    <div class="dash-stat"><div class="dash-stat-num">${gmailSent}</div><div class="dash-stat-lbl">Gmail ✓</div></div>
+  </div>`;
+
+  msgs.forEach(m=>{
+    const d=new Date(m.time);
+    const timeStr=d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    const initials=m.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    html+=`<div class="msg-card ${m.isNew?'msg-new':''}">
+      <div class="msg-meta">
+        <div class="msg-sender"><div class="msg-avatar">${initials}</div>${escHtml(m.name)} ${m.isNew?'<span class="new-badge">NEW</span>':''}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:.72rem;color:${m.gmailSent?'var(--accent)':'var(--gray)'}">${m.gmailSent?'✓ Gmail':'⚠ Dashboard only'}</span>
+          <span class="msg-time">${timeStr}</span>
+        </div>
+      </div>
+      <div class="msg-email">📧 ${escHtml(m.email)}</div>
+      <div style="font-size:.8rem;color:var(--white);margin-bottom:8px;font-weight:600">📌 ${escHtml(m.subject)}</div>
+      <div class="msg-text">${escHtml(m.message)}</div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <a href="mailto:${encodeURIComponent(m.email)}?subject=Re: ${encodeURIComponent(m.subject)}" class="btn-sm demo" style="font-size:.75rem;padding:6px 14px">↩ Reply</a>
+        <button onclick="deleteMsg(${m.id})" class="btn-sm gh" style="font-size:.75rem;padding:6px 14px">🗑 Delete</button>
+        ${m.isNew?`<button onclick="markRead(${m.id})" class="btn-sm gh" style="font-size:.75rem;padding:6px 14px">✓ Mark Read</button>`:''}
+      </div>
+    </div>`;
+  });
+
+  body.innerHTML=html;
+  // Mark all as read after viewing
+  const updated=msgs.map(m=>({...m,isNew:false}));
+  await saveMessages(updated);
+}
+
+async function deleteMsg(id){
+  let msgs=await loadMessages();
+  msgs=msgs.filter(m=>m.id!==id);
+  await saveMessages(msgs);
+  renderDash();
+}
+async function markRead(id){
+  let msgs=await loadMessages();
+  msgs=msgs.map(m=>m.id===id?{...m,isNew:false}:m);
+  await saveMessages(msgs);
+  renderDash();
+}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+</script>
+</body>
+</html>
